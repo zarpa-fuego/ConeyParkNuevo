@@ -11,7 +11,6 @@ import com.upeu.utils.Colors;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,23 +20,33 @@ import java.util.Scanner;
 public class Main {
 
 
-    List<Producto> productos;
-
-
     public static void main(String[] args) throws IllegalAccessException, IOException {
+        List<Producto> productoList = new ArrayList<>();
+        // Datos Iniciales
+        Producto p1 = new Producto(1, "Carros Chocones", "Juegos", 5.0);
+        Producto p2 = new Producto(2, "Motos", "Juegos", 5.0);
+        Producto p3 = new Producto(3, "DOOM", "Juegos", 2.0);
+        Producto p4 = new Producto(4, "Galletas Chomp", "Comida", 2.0);
+        Producto p5 = new Producto(5, "Agua", "Comida", 2.0);
 
-        Main self = new Main();
-        Scanner scanner = new Scanner(System.in);
-
-        self.initData();
+        productoList.add(p1);
+        productoList.add(p2);
+        productoList.add(p3);
+        productoList.add(p4);
+        productoList.add(p5);
         List<Tarjeta> tarjetaList = new ArrayList<>();
         List<Venta> ventaList = new ArrayList<>();
         Tarjeta tarjeta = new Tarjeta("123", "Rodrigo", 100.0); // probar
+        Tarjeta tarjetaJuan = new Tarjeta("1234", "Juan", 100.0); // probar
         tarjetaList.add(tarjeta);
+        tarjetaList.add(tarjetaJuan);
+        // Fin de datos iniciales
+
+
+        Scanner scanner = new Scanner(System.in);
 
 
         imprimirLogo();
-        //instance.categorias.get(0).printProducts();
         int opc = 0;
         do {
 
@@ -103,11 +112,11 @@ public class Main {
                                     //imprimir los producos
                                     productoController = new ProductoController();
                                     tarjetaController = new TarjetaController();
-                                    productoController.imprimirProductos(self.productos);
+                                    productoController.imprimirProductos(productoList);
                                     System.out.printf("Seleccione Producto");
                                     int idProducto = scanner.nextInt();
-                                    Producto productoSelecionado = productoController.buscarProductoPorId(self.productos, idProducto);
-                                    System.out.println("Prodcuto Selccionado: " + productoSelecionado.getNombre());
+                                    Producto productoSelecionado = productoController.buscarProductoPorId(productoList, idProducto);
+                                    System.out.println(Colors.ANSI_RED + "Prodcuto Selccionado: " + productoSelecionado.getNombre() + Colors.ANSI_RESET);
                                     System.out.println("Ingrese numero de tarjeta");
                                     String numTarjeta = scanner.next();
                                     Tarjeta tarjetaBusqueda = tarjetaController.buscarTarjetaPorNumero(tarjetaList, numTarjeta);
@@ -115,7 +124,7 @@ public class Main {
                                     Venta venta = new Venta(productoSelecionado, productoSelecionado.getPrecio(), tarjetaBusqueda);
                                     ventaList.add(venta);
                                     tarjetaBusqueda.setSaldo(tarjetaBusqueda.getSaldo() - productoSelecionado.getPrecio());
-                                   // saldo = saldo-gasto
+                                    // saldo = saldo-gasto
                                     tarjetaList = tarjetaController.actualizarSaldo(tarjetaList, tarjetaBusqueda);
 
 
@@ -143,21 +152,6 @@ public class Main {
 
     }
 
-    public void initData() {
-        Producto p1 = new Producto(1, "Carros Chocones", "Juegos", 5.0);
-        Producto p2 = new Producto(2, "Motos", "Juegos", 5.0);
-        Producto p3 = new Producto(3, "DOOM", "Juegos", 2.0);
-        Producto p4 = new Producto(4, "Galletas Chomp", "Comida", 2.0);
-        Producto p5 = new Producto(5, "Agua", "Comida", 2.0);
-
-        productos = new ArrayList<>();
-        productos.add(p1);
-        productos.add(p2);
-        productos.add(p3);
-        productos.add(p4);
-        productos.add(p5);
-
-    }
 
     public static void printMainMenu() {
         System.out.println(Colors.ANSI_GREEN + "╔══════════════════════════════╗" + Colors.ANSI_RESET);
