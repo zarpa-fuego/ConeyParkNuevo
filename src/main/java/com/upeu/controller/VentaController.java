@@ -12,5 +12,4 @@ public class VentaController {
         TablaDinamica tablaDinamica = new TablaDinamica();
         tablaDinamica.imprimirTabla(ventas);
     }
-
 }

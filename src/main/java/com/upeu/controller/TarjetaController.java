@@ -19,6 +19,7 @@ public class TarjetaController {
         Tarjeta tarjeta = new Tarjeta();
         System.out.print(Colors.ANSI_BLUE + "Ingrese el nombre: " + Colors.ANSI_RESET);
         tarjeta.setNombre(scanner.nextLine());
+
         System.out.print(Colors.ANSI_BLUE + "Ingrese el monto inicial: " + Colors.ANSI_RESET);
         tarjeta.setSaldo(scanner.nextDouble());
         System.out.println(Colors.ANSI_GREEN + "Tarjeta creada" + Colors.ANSI_RESET);
@@ -58,11 +59,12 @@ public class TarjetaController {
     public List<Tarjeta> actualizarSaldo(List<Tarjeta> tarjetas, Tarjeta tarjetaSeleccionada) {
 
         for (Tarjeta tarjeta : tarjetas) {
+
             if (tarjeta.getNumero().equals(tarjetaSeleccionada.getNumero())) {
                 tarjeta.setSaldo(tarjetaSeleccionada.getSaldo());
             }
         }
-        return tarjetas; // Retorna null si no se encuentra el producto
+        return tarjetas;
     }
 
 }

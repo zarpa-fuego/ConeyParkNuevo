@@ -36,10 +36,10 @@ public class Main {
         productoList.add(p5);
         List<Tarjeta> tarjetaList = new ArrayList<>();
         List<Venta> ventaList = new ArrayList<>();
-        Tarjeta tarjeta = new Tarjeta("123", "Rodrigo", 100.0); // probar
-        Tarjeta tarjetaJuan = new Tarjeta("1234", "Juan", 100.0); // probar
-        tarjetaList.add(tarjeta);
-        tarjetaList.add(tarjetaJuan);
+        Tarjeta tarjetaBonnier = new Tarjeta("123", "Bonnier", 100.0); // probar
+        Tarjeta tarjetaEdy = new Tarjeta("1234", "Edy", 100.0); // probar
+        tarjetaList.add(tarjetaBonnier);
+        tarjetaList.add(tarjetaEdy);
         // Fin de datos iniciales
 
 
@@ -59,6 +59,7 @@ public class Main {
                     case 1: {
                         do {
                             try {
+                                //gestion tarjetas
                                 printMenuTarjeta();
                                 opc = scanner.nextInt();
                                 TarjetaController tarjetaController = new TarjetaController();
@@ -68,9 +69,8 @@ public class Main {
                                     }
                                     break;
                                     case 1: {
-                                        Tarjeta tarjeta2 = tarjetaController.crearTarjeta();
-
-                                        tarjetaList.add(tarjeta2);
+                                        Tarjeta tarjeta = tarjetaController.crearTarjeta();
+                                        tarjetaList.add(tarjeta);
                                     }
                                     break;
                                     case 2: {
@@ -82,7 +82,7 @@ public class Main {
                                         System.out.println(Colors.ANSI_GREEN + "Eliminar Tarjeta" + Colors.ANSI_RESET);
                                         System.out.print(Colors.ANSI_GREEN + "Ingrese número de tarjeta" + Colors.ANSI_RESET);
                                         String numero = scanner.next();
-                                        tarjetaController.eliminarTarjetaPorNumero(numero, tarjetaList);
+                                        tarjetaList = tarjetaController.eliminarTarjetaPorNumero(numero, tarjetaList);
                                         tarjetaController.imprimirTarjeta(tarjetaList);
 
                                     }
@@ -103,15 +103,14 @@ public class Main {
                     case 2: {
                         do {
                             printMenuVenta();
-                            ProductoController productoController;
-                            TarjetaController tarjetaController;
+                            ProductoController productoController = new ProductoController();
+                            TarjetaController tarjetaController = new TarjetaController();
                             opc = scanner.nextInt();
                             switch (opc) {
                                 case 1: {
                                     System.out.printf(Colors.ANSI_GREEN + "Crear Venta" + Colors.ANSI_RESET);
                                     //imprimir los producos
-                                    productoController = new ProductoController();
-                                    tarjetaController = new TarjetaController();
+
                                     productoController.imprimirProductos(productoList);
                                     System.out.printf("Seleccione Producto");
                                     int idProducto = scanner.nextInt();
@@ -124,6 +123,7 @@ public class Main {
                                     Venta venta = new Venta(productoSelecionado, productoSelecionado.getPrecio(), tarjetaBusqueda);
                                     ventaList.add(venta);
                                     tarjetaBusqueda.setSaldo(tarjetaBusqueda.getSaldo() - productoSelecionado.getPrecio());
+                                    //tarjeta.saldo= tarjeta.saldo-gaste;
                                     // saldo = saldo-gasto
                                     tarjetaList = tarjetaController.actualizarSaldo(tarjetaList, tarjetaBusqueda);
 
@@ -221,6 +221,4 @@ public class Main {
         }
         System.out.println(asciiArt);
     }
-
-
 }

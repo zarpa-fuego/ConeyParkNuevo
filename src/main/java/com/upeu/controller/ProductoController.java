@@ -9,6 +9,7 @@ public class ProductoController {
 
 
     public Producto buscarProductoPorId(List<Producto> productos, int idProducto) {
+
         for (Producto producto : productos) {
             if (producto.getIdProducto() == idProducto) {
                 return producto;
@@ -21,5 +22,4 @@ public class ProductoController {
         TablaDinamica tablaDinamica = new TablaDinamica();
         tablaDinamica.imprimirTabla(productos);
     }
-
 }
